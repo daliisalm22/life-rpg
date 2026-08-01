@@ -1,5 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root{
+    --black: #02020a;
+    --white: #f1edee;
+    --pink-light: #ffb3cc;
+    --pink-dark: #ff99bb;
+    --orange-light: #ffd1b3;
+    --orange-dark: #ffb366;
+    --yellow-light: #fff2b3;
+    --yellow-dark: #ffe680;
+    --green-light: #b3ffcc;
+    --green-dark: #6de194;
+    --blue-light: #b3d1ff;
+    --blue-dark: #80b3ff;
+    --purple-light: #e6b3ff;
+    --purple-dark: #cc99ff;
+
+    --accent-light: var(--pink-light);
+    --accent-dank: var(--pink-dark);
+}
+
+body.theme-pink{
+    --accent-light: var(--pink-light);
+    --accent-dark: var(--pink-dark);
+}
+
+body.theme-orange{
+    --accent-light: var(--orange-light);
+    --accent-dark: var(--orange-dark);
+}
+
+body.theme-yellow{
+    --accent-light: var(--yellow-light);
+    --accent-dark: var(--yellow-dark);
+}
+
+body.theme-green{
+    --accent-light: var(--green-light);
+    --accent-dark: var(--green-dark);
+}
+
+body.theme-blue{
+    --accent-light: var(--blue-light);
+    --accent-dark: var(--blue-dark);
+}
+
+body.theme-purple{
+    --accent-light: var(--purple-light);
+    --accent-dark: var(--purple-dark);
+}
+
+
+
 *{
     font-family: 'Poppins', sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--white) 0%, var(--accent-light) 100%); 
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 10px;
+}
+
+.glass-card{
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.77);
+    border-radius: 29px;
+    padding: 40px;
+    text-align: center;
+    color: var(--black);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
