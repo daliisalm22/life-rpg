@@ -4,7 +4,7 @@
     --black: #02020a;
     --white: #f1edee;
     --pink-light: #ffb3cc;
-    --pink-dark: #ff99bb;
+    --pink-dark: #fa88ae;
     --orange-light: #ffd1b3;
     --orange-dark: #ffb366;
     --yellow-light: #fff2b3;
@@ -17,7 +17,7 @@
     --purple-dark: #cc99ff;
 
     --accent-light: var(--pink-light);
-    --accent-dank: var(--pink-dark);
+    --accent-dark: var(--pink-dark);
 }
 
 body.theme-pink{
@@ -63,6 +63,57 @@ body{
     padding-left: 40px;
     padding-top: 10px;
 }
+
+body.dark-mode{
+    background: linear-gradient(180deg, var(--black) 0%, var(--accent-dark) 100%);
+    color: var(--white);
+}
+
+body.dark-mode .glass-card{
+    background: rgba(2, 2, 10, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--white);
+}
+body::-webkit-scrollbar{
+    width: 7px;
+    height: 10px;
+    background: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.77);
+}
+body::-webkit-scrollbar-track{
+    background: linear-gradient(180deg, var(--white) 0%, var(--accent-light) 100%); 
+    padding-right: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.77);
+}
+body::-webkit-scrollbar-thumb{
+    border-radius: 29px;
+    background: var(--accent-dark)
+}
+body::-webkit-scrollbar-thumb:hover{
+    background: var(--accent-light)
+}
+
+body.dark-mode::-webkit-scrollbar-track{
+    background: linear-gradient(180deg, var(--black) 0%, var(--accent-dark) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode::-webkit-scrollbar-thumb{
+    border-radius: 29px;
+    background: var(--accent-light)
+}
+body.dark-mode::-webkit-scrollbar-thumb:hover{
+    background: var(--accent-dark)
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+::selection{
+    background: color-mix(in srgb, var(--accent-dark) 60%, transparent);
+}
+
 
 .glass-card{
     background: rgba(255, 255, 255, 0.25);
