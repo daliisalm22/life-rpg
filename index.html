@@ -4,15 +4,41 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>charis - lifeRPG</title>
     </head>
     <body>
-        <h1>charis - lifeRPG</h1>
+        <header class="top-control-bar">
+            <div class="screen-title">
+                <h1>DASHBOARD</h1>
+            </div>
+            <div class="controls-wrapper">
+                <button id="light-dark-toggle" class="glass-icon-btn">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </header>
 
-        <div class="glass-card">
-            <p>ur life, but gamified :3</p>
-            <button id="light-dark-toggle">light mode/dark mode</button>
-        </div>
+        <main class="app-container">
+            <div class="glass-card">
+                <p>ur life, but gamified :3</p>
+            </div>
+        </main>
+
+        <nav class="floating-nav-bar glass-card">
+            <button class="nav-icon-btn active" data-target="home-view" title="dashboard">
+                <span class="material-symbols-rounded">home</span>
+            </button>
+            <button class="nav-icon-btn" data-target="tasks-view" title="tasks">
+                <span class="material-symbols-rounded">check_box</span>
+            </button>
+            <button class="nav-icon-btn" data-target="shop-view" title="shop">
+                <span class="material-symbols-rounded">shopping_bag</span>
+            </button>
+            <button class="nav-icon-btn" data-target="settings-view" title="settings">
+                <span class="material-symbols-rounded">settings</span>
+            </button>
+        </nav>
 
         <script src="script.js"></script>
     </body>
