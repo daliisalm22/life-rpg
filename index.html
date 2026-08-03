@@ -10,7 +10,7 @@
     <body>
         <header class="top-control-bar">
             <div class="screen-title">
-                <h1>DASHBOARD</h1>
+                <h1 id="header-title">DASHBOARD</h1>
             </div>
             <div class="controls-wrapper">
                 <button id="light-dark-toggle" class="glass-icon-btn">
@@ -20,22 +20,49 @@
         </header>
 
         <main class="app-container">
-            <div class="glass-card">
-                <p>ur life, but gamified :3</p>
+            <section class="glass-card status-bar">
+                <div class="stat-pill">🪙 <span id="coin-count">0</span> coins</div>
+                <div class="stat-pill">🔥 <span id="streak-count">1</span> day streak</div>
+            </section>
+
+            <div class="views-wrapper">
+                <section id="home-screen" class="screen active">
+                    <div class="glass-card">
+                        <p>ur life, but gamified :3</p>
+                    </div>
+                </section>
+
+                <section id="tasks-screen" class="screen">
+                    <div class="glass-card">
+                        <p>tasks</p>
+                    </div>
+                </section>
+
+                <section id="shop-screen" class="screen">
+                    <div class="glass-card">
+                        <p>shop</p>
+                    </div>
+                </section>
+
+                <section id="settings-screen" class="screen">
+                    <div class="glass-card">
+                        <p>settings</p>
+                    </div>
+                </section>
             </div>
         </main>
 
         <nav class="floating-nav-bar glass-card">
-            <button class="nav-icon-btn active" data-target="home-view" title="dashboard">
+            <button class="nav-icon-btn active" data-target="home-screen" title="dashboard">
                 <span class="material-symbols-rounded">home</span>
             </button>
-            <button class="nav-icon-btn" data-target="tasks-view" title="tasks">
+            <button class="nav-icon-btn" data-target="tasks-screen" title="tasks">
                 <span class="material-symbols-rounded">check_box</span>
             </button>
-            <button class="nav-icon-btn" data-target="shop-view" title="shop">
+            <button class="nav-icon-btn" data-target="shop-screen" title="shop">
                 <span class="material-symbols-rounded">shopping_bag</span>
             </button>
-            <button class="nav-icon-btn" data-target="settings-view" title="settings">
+            <button class="nav-icon-btn" data-target="settings-screen" title="settings">
                 <span class="material-symbols-rounded">settings</span>
             </button>
         </nav>
