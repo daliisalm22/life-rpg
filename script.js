@@ -17,6 +17,7 @@ const screenTitles = {
     'home-screen': 'DASHBOARD',
     'tasks-screen': 'TASKS',
     'shop-screen': 'SHOP',
+    'inventory-screen': 'INVENTORY',
     'settings-screen': 'SETTINGS'
 };
 navButtons.forEach(btn => {

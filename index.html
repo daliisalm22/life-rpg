@@ -21,8 +21,21 @@
 
         <main class="app-container">
             <section class="glass-card status-bar">
-                <div class="stat-pill">🪙 <span id="coin-count">0</span> coins</div>
-                <div class="stat-pill">🔥 <span id="streak-count">1</span> day streak</div>
+                <div class="stat-item">
+                    <span class="stat-icon"><span class="material-symbols-rounded">toll</span></span>
+                    <div class="stat-info">
+                        <span id="coin-count">0</span>
+                        <span id="stat-label">coins</span>
+                    </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-icon"><span class="material-symbols-rounded">mode_heat</span></span>
+                    <div class="stat-info">
+                        <span id="coin-count">1</span>
+                        <span id="stat-label">day streak</span>
+                    </div>
+                </div>
             </section>
 
             <div class="views-wrapper">
@@ -44,6 +57,12 @@
                     </div>
                 </section>
 
+                <section id="inventory-screen" class="screen">
+                    <div class="glass-card">
+                        <p>inventory</p>
+                    </div>
+                </section>
+
                 <section id="settings-screen" class="screen">
                     <div class="glass-card">
                         <p>settings</p>
@@ -60,7 +79,10 @@
                 <span class="material-symbols-rounded">check_box</span>
             </button>
             <button class="nav-icon-btn" data-target="shop-screen" title="shop">
-                <span class="material-symbols-rounded">shopping_bag</span>
+                <span class="material-symbols-rounded">local_mall</span>
+            </button>
+            <button class="nav-icon-btn" data-target="inventory-screen" title="inventory">
+                <span class="material-symbols-rounded">star_shine</span>
             </button>
             <button class="nav-icon-btn" data-target="settings-screen" title="settings">
                 <span class="material-symbols-rounded">settings</span>
