@@ -361,7 +361,7 @@ body.dark-mode .glass-input{
 }
 
 .complete-btn{
-    background: rgb(63, 63, 63, 0.3);
+    background: rgba(63, 63, 63, 0.3);
     border: 1px solid rgba(77, 77, 77, 0.5);
     padding: 8px 14px;
     border-radius: 29px;
@@ -376,4 +376,14 @@ body.dark-mode .glass-input{
     opacity: 0.6;
     font-size: 0.9rem;
     padding: 10px;
+}
+
+.glass-pill-select{
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 29px;
+}
+
+button, .glass-btn, .nav-icon-btn{
+    cursor: pointer;
 }

@@ -89,3 +89,96 @@ window.completeTask = function(id){
         renderTasks();
     }
 };
+
+const rewardForm = document.getElementById('reward-form');
+const rewardInput = document.getElementById('reward-input');
+const rewardCost = document.getElementById('reward-cost');
+const shopList = document. getElementById('shop-list');
+const inventoryList = document.getElementById('inventory-list');
+let shopItems = [
+    {id: 1, title: 'bubble tea', cost: 50},
+    {id: 2, title: '1 hr of gaming', cost: 75},
+    {id: 3, title: 'watch a movie', cost: 100}
+];
+let inventoryItems = [];
+rewardForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = rewardInput.value.trim();
+    const cost = parseInt(rewardCost.value);
+    const newReward = {
+        id: Date.now(),
+        title,
+        cost
+    };
+    shopItems.push(newReward);
+    rewardInput.value = '';
+    rewardCost.value = '';
+    renderShop();
+});
+function renderShop(){
+    if (shopItems.length === 0){
+        shopList.innerHTML = `<p class="empty-state-text">no rewards in the shop yet. add one above!</p>`;
+        return;
+    }
+    shopList.innerHTML='';
+    shopItems.forEach(item => {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'glass-card task-item-card';
+        itemCard.innerHTML = `
+            <div class="task-details">
+                <h3>${item.title}</h3>
+                <span class="task-reward">🪙 ${item.cost} coins</span>
+            </div>
+            <div class="task-actions">
+                <button class="glass-btn primary-btn" style="padding: 8px 14px; font-size: 0.85rem;" onclick="buyReward(${item.id})">buy</button>
+            </div>
+        `;
+        shopList.appendChild(itemCard);
+    });
+}
+window.buyReward = function(id) {
+    const itemIndex = shopItems.findIndex(i => i.id === id);
+    if(itemIndex !== -1) {
+        const item = shopItems[itemIndex];
+        if (coins >= item.cost){
+            coins -= item.cost;
+            coinCountSpan.textContent = coins;
+            inventoryItems.push({
+                id: Date.now(),
+                title: item.title
+            });
+            renderInventory();
+            alert(`success! you bought: "${item.title}". check your inventory screen!`);
+        }    
+        else{
+            alert(`not enough coins! complete more tasks to earn ${item.cost - coins} more coins.`);
+        }
+    }
+};
+function renderInventory(){
+    if (inventoryItems.length === 0){
+        inventoryList.innerHTML = `<p class="empty-state-text">your inventory is empty. go earn those hours and buy something nice!</p>`;
+        return;
+    }
+    inventoryList.innerHTML = '';
+    inventoryItems.forEach((item, index) => {
+        const invCard = document.createElement('div');
+        invCard.className = 'glass-card task-item-card';
+        invCard.innerHTML = `
+            <div class="task-details">
+                <h3>${item.title}</h3>
+                <span class="task-reward">ready to claim</span>
+            </div>
+            <div class="task-actions">
+                <button class="glass-btn complete-btn" onclick="redeemReward(${index})">redeem</button>
+            </div>
+        `;
+        inventoryList.appendChild(invCard);
+    });
+}
+window.redeemReward = function(index){
+    const claimed = inventoryItems.splice(index, 1);
+    renderInventory();
+    alert(`you redeemed"${claimed[0].title}"! enjoy your real life treat, you earned it lol.`);
+};
+renderShop();

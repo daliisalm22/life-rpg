@@ -66,11 +66,11 @@
                                     <option value="120">2 hours (24 coins)</option>
                                 </select>
                             </div>
-                            <button type="submit" class="glass-btn primary btn">add task</button>
+                            <button type="submit" class="glass-btn primary-btn">add task</button>
                         </form>
                     </div>
                     <div class="glass-card task-list-card">
-                        <h2>acitve tasks</h2>
+                        <h2>active tasks</h2>
                         <div id="task-list" class="task-list">
                             <p class="empty-state-text">no active tasks yet. add one above!</p>
                         </div>
@@ -78,14 +78,31 @@
                 </section>
 
                 <section id="shop-screen" class="screen">
-                    <div class="glass-card">
-                        <p>shop</p>
+                    <div class="glass-card shop-input-card">
+                        <h2>add custom reward</h2>
+                        <p>e.g. taking a bubble bath, building a lego set or finally buying those shoes you always wanted</p>
+                        <form id="reward-form" class="task-form">
+                            <input type="text" id="reward-input" placeholder="what treat do you want to unlock?" required class="glass-input">
+                            <input type="number" id="reward-cost" placeholder="coin cost (e.g. 100)" required min="1" class="glass-input">
+                            <button type="submit" class="glass-btn primary-btn">create reward</button>
+                        </form>
+                    </div>
+                    <div class="glass-card shop-list-card">
+                        <h2>reward shop</h2>
+                        <div id="shop-list" class="task-list">
+                            <p class="empty-state-text">no rewards in the shop yet. add one above!</p>
+                        </div>
                     </div>
                 </section>
 
                 <section id="inventory-screen" class="screen">
-                    <div class="glass-card">
-                        <p>inventory</p>
+                    <div class="glass-card inventory-list-card">
+                        <h2>your reward inventory</h2>
+                        <p class="empty-state-text" style="margin-top: 5px;">claimed rewards ready to redeem in real life</p>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
+                        <div id="inventory-list" class="task-list" style="margin-top: 15px">
+                            <p class="empty-state-text">your inventory is empty. go earn those hours and buy something nice!</p>
+                        </div>
                     </div>
                 </section>
 
