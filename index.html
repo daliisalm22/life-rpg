@@ -107,8 +107,18 @@
                 </section>
 
                 <section id="settings-screen" class="screen">
-                    <div class="glass-card">
-                        <p>settings</p>
+                    <div class="glass-card settings-card">
+                        <h2>user stats</h2>
+                        <div class="stats-grid" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                            <p>total coins earned: <span id="stat-total-coins">0</span></p>
+                            <p>tasks completed: <span id="stat-completed-tasks">0</span></p>
+                            <p>items in inventory: <span id="stat-inventory-count">0</span></p>
+                        </div>
+                    </div>
+                    <div class="glass-card settings-card" style="margin-top: 20px;">
+                        <h2>data & control</h2>
+                        <p class="empty-state-text" style="text-align: center; margin: 10px 0;">you can reset all your progress here.</p>
+                        <button class="glass-btn danger-btn" onclick="resetAppData()">reset all data</button> 
                     </div>
                 </section>
             </div>

@@ -34,13 +34,53 @@ navButtons.forEach(btn => {
 });
 
 let coins = 0;
+let tasks = [];
+let shopItems = [
+    {id: 1, title: 'bubble tea', cost: 50},
+    {id: 2, title: '1 hr of gaming', cost: 75},
+    {id: 3, title: 'watch a movie', cost: 100}
+];
+let inventoryItems = [];
+let completedTasksCount = 0;
 const coinCountSpan = document.getElementById('coin-count');
+const statTotalCoins = document.getElementById('stat-total-coins');
+const statCompletedTasks = document.getElementById('stat-completed-tasks');
+const statInventoryCount = document.getElementById('stat-inventory-count');
+function saveData(){
+    localStorage.setItem('rpg_coins', coins);
+    localStorage.setItem('rpg_tasks', JSON.stringify(tasks));
+    localStorage.setItem('rpg_shop', JSON.stringify(shopItems));
+    localStorage.setItem('rpg_inventory', JSON.stringify(inventoryItems));
+    localStorage.setItem('rpg_completed', completedTasksCount);
+    updateStats();
+}
+function loadData(){
+    const savedCoins = localStorage.getItem('rpg_coins');
+    if (savedCoins !== null) coins = parseInt(savedCoins);
+    const savedTasks = localStorage.getItem('rpg_tasks');
+    if (savedTasks) tasks = JSON.parse(savedTasks);
+    const savedShop = localStorage.getItem('rpg_shop');
+    if (savedShop) shopItems = JSON.parse(savedShop);
+    const savedInventory = localStorage.getItem('rpg_inventory');
+    if (savedInventory) inventoryItems=JSON.parse(savedInventory);
+    const savedCompleted = localStorage.getItem('rpg_completed');
+    if (savedCompleted !== null) completedTasksCount = parseInt(savedCompleted);
+    coinCountSpan.textContent = coins;
+}
+
+function updateStats(){
+    coinCountSpan.textContent = coins;
+    if (statTotalCoins) statTotalCoins.textContent = coins;
+    if (statCompletedTasks) statCompletedTasks.textContent = completedTasksCount;
+    if (statInventoryCount) statInventoryCount.textContent = inventoryItems.length;
+}
+
+
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
 const taskCategory = document.getElementById('task-category');
 const taskDuration = document.getElementById('task-duration');
 const taskList = document.getElementById('task-list');
-let tasks = [];
 taskForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const title = taskInput.value.trim();
@@ -86,7 +126,9 @@ window.completeTask = function(id){
         coins += tasks[taskIndex].coins;
         coinCountSpan.textContent = coins;
         tasks.splice(taskIndex, 1);
+        completedTasksCount++;
         renderTasks();
+        saveData();
     }
 };
 
@@ -95,12 +137,7 @@ const rewardInput = document.getElementById('reward-input');
 const rewardCost = document.getElementById('reward-cost');
 const shopList = document. getElementById('shop-list');
 const inventoryList = document.getElementById('inventory-list');
-let shopItems = [
-    {id: 1, title: 'bubble tea', cost: 50},
-    {id: 2, title: '1 hr of gaming', cost: 75},
-    {id: 3, title: 'watch a movie', cost: 100}
-];
-let inventoryItems = [];
+
 rewardForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const title = rewardInput.value.trim();
@@ -114,6 +151,7 @@ rewardForm.addEventListener('submit', (e) => {
     rewardInput.value = '';
     rewardCost.value = '';
     renderShop();
+    saveData();
 });
 function renderShop(){
     if (shopItems.length === 0){
@@ -148,6 +186,7 @@ window.buyReward = function(id) {
                 title: item.title
             });
             renderInventory();
+            saveData();
             alert(`success! you bought: "${item.title}". check your inventory screen!`);
         }    
         else{
@@ -179,6 +218,39 @@ function renderInventory(){
 window.redeemReward = function(index){
     const claimed = inventoryItems.splice(index, 1);
     renderInventory();
+    saveData();
     alert(`you redeemed"${claimed[0].title}"! enjoy your real life treat, you earned it lol.`);
 };
 renderShop();
+
+function updateStats(){
+    if (statTotalCoins) statTotalCoins.textContent = coins;
+    if (statCompletedTasks) statCompletedTasks.textContent = completedTasksCount;
+    if (statInventoryCount) statInventoryCount.textContent = inventoryItems.length;
+}
+window.resetAppData = function(){
+    if (confirm("Are you sure you want to reset all your progress, coins and inventory?")){
+        localStorage.clear()
+        coins = 0;
+        coinCountSpan.textContent = coins;
+        tasks = [];
+        shopItems = [
+            {id: 1, title: 'bubble tea', cost: 50},
+            {id: 2, title: '1 hr of gaming', cost: 75},
+            {id: 3, title: 'watch a movie', cost: 100}
+            ];
+            inventoryItems= [];
+            completedTasksCount = 0;
+            renderTasks();
+            renderShop();
+            renderInventory();
+            saveData();
+            alert("RPG data reset successfully! fresh start yay!!");
+    }
+};
+
+loadData();
+renderTasks();
+renderShop();
+renderInventory();
+updateStats();

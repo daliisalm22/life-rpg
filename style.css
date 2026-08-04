@@ -270,6 +270,7 @@ body.dark-mode .stat-divider{
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 12px 18px;
+    align-self: center;
     border-radius: 29px;
     font-family: 'Poppins', sans-serif;
     color: inherit;
@@ -299,11 +300,16 @@ body.dark-mode .glass-input{
     border-radius: 29px;
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    color: inherit;
+    color: var(--black);
     font-family: 'Poppins', sans-serif;
 }
 
-.body.dark-mode .task-options-row select{
+body.dark-mode .task-options-row select{
+    background: rgba(2, 2, 10, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .glass-btn{
     background: rgba(2, 2, 10, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -386,4 +392,23 @@ body.dark-mode .glass-input{
 
 button, .glass-btn, .nav-icon-btn{
     cursor: pointer;
+}
+
+.glass-btn.danger-btn{
+    background: rgba(255, 71, 87, 0.15);
+    border: 1px solid rgba(255, 71, 87, 0.4);
+    color: #ff4757;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 29px;
+    font-weight: 600;
+    padding: 12px;
+}
+
+.glass-btn.danger-btn:hover{
+    background: rgba(255, 71, 87, 0.25);
+}
+
+body.dark-mode .glass-pill-select{
+    color: var(--white);
 }
