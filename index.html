@@ -46,8 +46,34 @@
                 </section>
 
                 <section id="tasks-screen" class="screen">
-                    <div class="glass-card">
-                        <p>tasks</p>
+                    <div class="glass-card task-input-card">
+                        <h2>add new task</h2>
+                        <form id="task-form" class="task-form">
+                            <input type="text" id="task-input" placeholder="what task do you need to conquer :3" required class="glass-input">
+                            <div class="task-options-row">
+                                <select id="task-category" class="glass-pill-select">
+                                    <option value="health">health</option>
+                                    <option value="study">study</option>
+                                    <option value="work">work</option>
+                                    <option value="life">life</option>
+                                    <option value="fun">fun</option>
+                                </select>
+                                <select id="task-duration" class="glass-pill-select">
+                                    <option value="5">5 mins (1 coin)</option>
+                                    <option value="15">15 mins (3 coins)</option>
+                                    <option value="30">30 mins (6 coins)</option>
+                                    <option value="60">1 hour (12 coins)</option>
+                                    <option value="120">2 hours (24 coins)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="glass-btn primary btn">add task</button>
+                        </form>
+                    </div>
+                    <div class="glass-card task-list-card">
+                        <h2>acitve tasks</h2>
+                        <div id="task-list" class="task-list">
+                            <p class="empty-state-text">no active tasks yet. add one above!</p>
+                        </div>
                     </div>
                 </section>
 
