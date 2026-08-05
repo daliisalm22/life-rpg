@@ -34,6 +34,7 @@ navButtons.forEach(btn => {
 });
 
 let coins = 0;
+let totalCoinsEarned = 0;
 let tasks = [];
 let shopItems = [
     {id: 1, title: 'bubble tea', cost: 50},
@@ -50,6 +51,7 @@ const streakCountSpan = document.getElementById('streak-count');
 const statTotalCoins = document.getElementById('stat-total-coins');
 const statCompletedTasks = document.getElementById('stat-completed-tasks');
 const statInventoryCount = document.getElementById('stat-inventory-count');
+let currentTheme = 'theme-pink';
 function saveData(){
     localStorage.setItem('rpg_coins', coins);
     localStorage.setItem('rpg_tasks', JSON.stringify(tasks));
@@ -59,6 +61,8 @@ function saveData(){
     localStorage.setItem('rpg_streak', currentStreak);
     localStorage.setItem('rpg_last_active', lastActiveDate);
     localStorage.setItem('rpg_daily_minutes', JSON.stringify(dailyMinutes));
+    localStorage.setItem('rpg_total_earned', totalCoinsEarned);
+    localStorage.setItem('rpg_theme', currentTheme);
     updateStats();
 }
 function loadData(){
@@ -72,13 +76,28 @@ function loadData(){
     if (savedInventory) inventoryItems=JSON.parse(savedInventory);
     const savedCompleted = localStorage.getItem('rpg_completed');
     if (savedCompleted !== null) completedTasksCount = parseInt(savedCompleted);
-
     const savedStreak = localStorage.getItem('rpg_streak');
     if (savedStreak !== null) currentStreak = parseInt(savedStreak);
-    const savedLastActive = localStorage.getItem('rpg_last_archive');
+    const savedLastActive = localStorage.getItem('rpg_last_active');
     if (savedLastActive) lastActiveDate = savedLastActive;
     const savedDailyMinutes = localStorage.getItem('rpg_daily_minutes');
     if (savedDailyMinutes) dailyMinutes = JSON.parse(savedDailyMinutes);
+    const savedTotalEarned = localStorage.getItem('rpg_total_earned');
+    if (savedTotalEarned !== null) {
+        totalCoinsEarned = parseInt(savedTotalEarned);
+    }
+    else{
+        totalCoinsEarned = coins;
+    }
+    const savedTheme = localStorage.getItem('rpg_theme');
+    if (savedTheme) {
+        currentTheme = savedTheme;
+        body.className = '';
+        body.classList.add(currentTheme);
+        if(body.classList.contains('dark-mode')){
+
+        }
+    }
     coinCountSpan.textContent = coins;
     if (streakCountSpan) streakCountSpan.textContent = currentStreak;
 }
@@ -86,9 +105,10 @@ function loadData(){
 function updateStats(){
     coinCountSpan.textContent = coins;
     if (streakCountSpan) streakCountSpan.textContent = currentStreak;
-    if (statTotalCoins) statTotalCoins.textContent = coins;
+    if (statTotalCoins) statTotalCoins.textContent = totalCoinsEarned;
     if (statCompletedTasks) statCompletedTasks.textContent = completedTasksCount;
     if (statInventoryCount) statInventoryCount.textContent = inventoryItems.length;
+    renderRealChart();
     const dashCompleted = document.getElementById('dash-completed');
     const dashInventory = document.getElementById('dash-inventory');
     const dashTaskPreview = document.getElementById('dash-task-preview');
@@ -112,7 +132,44 @@ function updateStats(){
     renderRealChart();
 }
 function checkAndUpdateStreak(){
-    const today = new Date(). toISOString().split('T')
+    const today = new Date(). toISOString().split('T')[0];
+    if (lastActiveDate === today) return;
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayString = yesterday.toISOString().split('T')[0];
+    if (lastActiveDate === yesterdayString){
+        currentStreak++;
+    }
+    else if (lastActiveDate !== today){
+        currentStreak = 1;
+    }
+    lastActiveDate = today;
+}
+function logTaskMinutes(duration){
+    const today = new Date().toISOString().split('T')[0];
+    dailyMinutes[today] = (dailyMinutes[today] || 0) + duration;
+}
+function renderRealChart(){
+    const chartContainer = document.getElementById('real-chart-container');
+    if (!chartContainer) return;
+    let daysHTML = '';
+    const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    for (let i = 4; i >= 0; i--){
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateString = d.toISOString().split('T')[0];
+        const dayLabel = daysOfWeek[d.getDay()];
+        const minutes = dailyMinutes[dateString] || 0;
+        const heightPx = Math.min(85, Math.max(10, (minutes/120) * 85));
+        daysHTML += `
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <span style="font-size: 0.65rem; opacity: 0.7;">${minutes}m</span>
+                <div style="width: 16px; height: ${heightPx}px; background: rgba(255, 71, 87, ${minutes > 0 ? 0.8 : 0.2}); border-radius: 8px 8px 0 0;"></div>
+                <span style="font-size: 0.7rem;">${dayLabel}</span>
+            </div>
+        `;
+    }
+    chartContainer.innerHTML = daysHTML;
 }
 
 const taskForm = document.getElementById('task-form');
@@ -137,6 +194,7 @@ taskForm.addEventListener('submit', (e) => {
     taskInput.value = '';
     renderTasks();
     saveData();
+    updateStats();
 });
 function renderTasks(){
     if (tasks.length === 0){
@@ -156,6 +214,7 @@ function renderTasks(){
             </div>
             <div class="task-actions">
                 <button class="glass-btn complete-btn" onclick="completeTask(${task.id})">done</button>
+                <button class="glass-btn" style="background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteTask(${task.id})">✕</button>
             </div>
         `;
         taskList.appendChild(taskCard);
@@ -166,7 +225,9 @@ window.completeTask = function(id){
     const taskIndex = tasks.findIndex(t => t.id === id);
     if(taskIndex !== -1){
         const taskDuration = tasks[taskIndex].duration;
-        coins += tasks[taskIndex].coins;
+        const earned = tasks[taskIndex].coins;
+        coins += earned;
+        totalCoinsEarned += earned;
         coinCountSpan.textContent = coins;
         tasks.splice(taskIndex, 1);
         completedTasksCount++;
@@ -175,6 +236,28 @@ window.completeTask = function(id){
         renderTasks();
         saveData();
     }
+};
+
+window.deleteTask = function(id){
+    tasks = tasks.filter(t => t.id !== id);
+    renderTasks();
+    saveData();
+};
+window.deleteShopItem = function(id){
+    shopItems = shopItems.filter(i => i.id !== id);
+    renderShop();
+    saveData();
+};
+window.deleteInventory = function(index){
+    const item = inventoryItems[index];
+    const shopMatch = shopItems.find(s => s.title.toLowerCase() === item.title.toLowerCase());
+    const refundAmount = shopMatch ? shopMatch.cost : 50;
+    coins += refundAmount;
+    inventoryItems.splice(index, 1);
+    coinCountSpan.textContent = coins;
+    renderInventory();
+    saveData();
+    alert(`refunded ${refundAmount} coins for deleting "${item.title}"!`);
 };
 
 const rewardForm = document.getElementById('reward-form');
@@ -214,6 +297,7 @@ function renderShop(){
             </div>
             <div class="task-actions">
                 <button class="glass-btn primary-btn" style="padding: 8px 14px; font-size: 0.85rem;" onclick="buyReward(${item.id})">buy</button>
+                <button class="glass-btn" style="background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteShopItem(${item.id})">✕</button>;
             </div>
         `;
         shopList.appendChild(itemCard);
@@ -256,12 +340,25 @@ function renderInventory(){
             </div>
             <div class="task-actions">
                 <button class="glass-btn complete-btn" onclick="redeemReward(${index})">redeem</button>
+                <button class="glass-btn" style="background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteInventoryItem(${index})" title="delete and get coin refund">✕</button>
             </div>
         `;
         inventoryList.appendChild(invCard);
     });
     updateStats();
 }
+
+const themeButtons = document.querySelectorAll('.theme-switch-btn');
+themeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const selectedTheme = btn.getAttribute('data-theme');
+        body.classList.remove('theme-pink', 'theme-orange', 'theme-yellow', 'theme-green', 'theme-blue', 'theme-purple');
+        body.classList.add(selectedTheme);
+        currentTheme = selectedTheme;
+        saveData();
+    });
+});
+
 window.redeemReward = function(index){
     const claimed = inventoryItems.splice(index, 1);
     renderInventory();
@@ -270,15 +367,11 @@ window.redeemReward = function(index){
 };
 renderShop();
 
-function updateStats(){
-    if (statTotalCoins) statTotalCoins.textContent = coins;
-    if (statCompletedTasks) statCompletedTasks.textContent = completedTasksCount;
-    if (statInventoryCount) statInventoryCount.textContent = inventoryItems.length;
-}
 window.resetAppData = function(){
     if (confirm("Are you sure you want to reset all your progress, coins and inventory?")){
         localStorage.clear()
         coins = 0;
+        totalCoinsEarned = 0;
         currentStreak = 1;
         dailyMinutes = {};
         coinCountSpan.textContent = coins;
@@ -288,14 +381,16 @@ window.resetAppData = function(){
             {id: 1, title: 'bubble tea', cost: 50},
             {id: 2, title: '1 hr of gaming', cost: 75},
             {id: 3, title: 'watch a movie', cost: 100}
-            ];
-            inventoryItems= [];
-            completedTasksCount = 0;
-            renderTasks();
-            renderShop();
-            renderInventory();
-            saveData();
-            alert("RPG data reset successfully! fresh start yay!!");
+        ];
+        inventoryItems= [];
+        completedTasksCount = 0;
+        body.className = '';
+        currentTheme = 'theme-pink';
+        renderTasks();
+        renderShop();
+        renderInventory();
+        saveData();
+        alert("RPG data reset successfully! fresh start yay!!");
     }
 };
 

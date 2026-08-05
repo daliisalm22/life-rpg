@@ -53,7 +53,7 @@
                     <div class="glass-card" style="padding: 20px; margin-bottom: 20px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                             <h3 style="font-size: 1rem;">active tasks preview</h3>
-                            <button class="glass-btn" style="font-size: 0.75px; padding: 4px 10px;" data-target="tasks-screen" onclick="switchScreen('tasks-screen')">view all</button>
+                            <button class="glass-icon-btn" data-target="tasks-screen" onclick="switchScreen('tasks-screen')">view all</button>
                         </div>
                         <div id="dash-task-preview">
                             <p class="empty-state-text" style="font-size: 0.85rem;">no active tasks.</p>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="glass-card" style="padding: 20px;">
                         <h3 style="font-size: 1rem; margin-bottom: 15px;">minutes focused (past 5 days)</h3>
-                        <div class="chart-container" style="display: flex; justify-content: space-around; align-items: flex-end; height: 120px; padding-top: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div id="real-chart-container" class="chart-container" style="display: flex; justify-content: space-around; align-items: flex-end; height: 120px; padding-top: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
 
                         </div>
                     </div>
@@ -135,6 +135,18 @@
                             <p>total coins earned: <span id="stat-total-coins">0</span></p>
                             <p>tasks completed: <span id="stat-completed-tasks">0</span></p>
                             <p>items in inventory: <span id="stat-inventory-count">0</span></p>
+                        </div>
+                    </div>
+                    <div class="glass-card settings-card" style="margin-top: 20px;">
+                        <h2>theme customizer</h2>
+                        <p class="empty-state-text" style="text-align: center; margin: 10px 0;">pick your theme!</p>
+                        <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-pink" style="background: var(--pink-light); padding: 10px;" title="pink"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-orange" style="background: var(--orange-light); padding: 10px;" title="orange"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-yellow" style="background: var(--yellow-light); padding: 10px;" title="yellow"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-green" style="background: var(--green-light); padding: 10px;" title="green"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-blue" style="background: var(--blue-light); padding: 10px;" title="blue"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-purple" style="background: var(--purple-light); padding: 10px;" title="purple"></button>
                         </div>
                     </div>
                     <div class="glass-card settings-card" style="margin-top: 20px;">
