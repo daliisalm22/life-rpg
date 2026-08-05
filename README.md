@@ -86,7 +86,7 @@ u can now check out the live online version here: **https://daliisalm22.github.i
 
 ## ೄྀ app demo video ^^
 
-warning: i didnt realize the music i listened to while filming would also be in the video and its kinda too late to remove it soooo yeahhh lol
+warning: i didnt realize the music i listened to while filming would also be in the video and its kinda too late to remove it soooo yeahhh lol (song name is trying on shoes by tate mcrae)
 
 https://github.com/user-attachments/assets/cafdd062-3d04-44fe-8089-361d83f8f837
 
