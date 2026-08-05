@@ -507,7 +507,7 @@ body.dark-mode .glass-pill-select{
 .music-dock-card{
     position: fixed;
     bottom: 85px;
-    left: 14%;
+    left: 200px;
     transform: translateX(-50%);
     width: 80%;
     max-width: 300px;
