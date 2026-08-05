@@ -86,6 +86,8 @@ u can now check out the live online version here: **https://daliisalm22.github.i
 
 ## ೄྀ app demo video ^^
 
+warning: i didnt realize the music i listened to while filming would also be in the video and its kinda too late to remove it soooo yeahhh lol
+
 https://github.com/user-attachments/assets/cafdd062-3d04-44fe-8089-361d83f8f837
 
 ୨୧ ⏔⏔⏔⏔♡⏔⏔⏔⏔ ୨୧ 
