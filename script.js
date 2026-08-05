@@ -3,22 +3,24 @@ const lightDarkToggleButton = document.getElementById('light-dark-toggle');
 const darkIcon = lightDarkToggleButton.querySelector('.material-symbols-rounded');
 lightDarkToggleButton.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
+    const isDarkMode = body.classList.contains('dark-mode');
     if (body.classList.contains('dark-mode')) {
         darkIcon.textContent = 'light_mode';
     }
     else{
         darkIcon.textContent = 'dark_mode';
     }
+    localStorage.setItem('rpg_dark_mode', isDarkMode);
 });
 const navButtons = document.querySelectorAll('.nav-icon-btn');
 const screens = document.querySelectorAll('.screen');
 const headerTitle = document.getElementById('header-title');
 const screenTitles = {
-    'home-screen': 'DASHBOARD',
-    'tasks-screen': 'TASKS',
-    'shop-screen': 'SHOP',
-    'inventory-screen': 'INVENTORY',
-    'settings-screen': 'SETTINGS'
+    'home-screen': '𐙚DASHBOARD ⋆.˚˖࿔ ࣪',
+    'tasks-screen': '𐙚TASKS ⋆.˚˖࿔ ࣪',
+    'shop-screen': '𐙚SHOP ⋆.˚˖࿔ ࣪',
+    'inventory-screen': '𐙚INVENTORY ⋆.˚˖࿔ ࣪',
+    'settings-screen': '𐙚SETTINGS ⋆.˚˖࿔ ࣪'
 };
 navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -100,6 +102,11 @@ function loadData(){
     }
     coinCountSpan.textContent = coins;
     if (streakCountSpan) streakCountSpan.textContent = currentStreak;
+    const savedDarkMode = localStorage.getItem('rpg_dark_mode');
+    if (savedDarkMode === 'true'){
+        body.classList.add('dark-mode');
+        if (darkIcon) darkIcon.textContent = 'light_mode';
+    }
 }
 
 function updateStats(){
@@ -214,7 +221,7 @@ function renderTasks(){
             </div>
             <div class="task-actions">
                 <button class="glass-btn complete-btn" onclick="completeTask(${task.id})">done</button>
-                <button class="glass-btn" style="background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteTask(${task.id})">✕</button>
+                <button class="glass-icon-btn" style="gap: 25px; background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteTask(${task.id})">✕</button>
             </div>
         `;
         taskList.appendChild(taskCard);
@@ -248,7 +255,7 @@ window.deleteShopItem = function(id){
     renderShop();
     saveData();
 };
-window.deleteInventory = function(index){
+window.deleteInventoryItem = function(index){
     const item = inventoryItems[index];
     const shopMatch = shopItems.find(s => s.title.toLowerCase() === item.title.toLowerCase());
     const refundAmount = shopMatch ? shopMatch.cost : 50;
@@ -297,7 +304,7 @@ function renderShop(){
             </div>
             <div class="task-actions">
                 <button class="glass-btn primary-btn" style="padding: 8px 14px; font-size: 0.85rem;" onclick="buyReward(${item.id})">buy</button>
-                <button class="glass-btn" style="background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteShopItem(${item.id})">✕</button>;
+                <button class="glass-icon-btn" style="gap: 25px; background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteShopItem(${item.id})">✕</button>
             </div>
         `;
         shopList.appendChild(itemCard);
@@ -340,7 +347,7 @@ function renderInventory(){
             </div>
             <div class="task-actions">
                 <button class="glass-btn complete-btn" onclick="redeemReward(${index})">redeem</button>
-                <button class="glass-btn" style="background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteInventoryItem(${index})" title="delete and get coin refund">✕</button>
+                <button class="glass-icon-btn" style="gap: 25px; background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px 10px; font-size: 0.8rem;" onclick="deleteInventoryItem(${index})" title="delete and get coin refund">✕</button>
             </div>
         `;
         inventoryList.appendChild(invCard);
@@ -394,6 +401,20 @@ window.resetAppData = function(){
     }
 };
 
+const onboardingModal = document.getElementById('onboarding-modal');
+const closeOnboardingBtn = document.getElementById('close-onboarding-btn');
+function checkOnboarding(){
+    const hasSeenOnboarding = localStorage.getItem('charis_onboarding_seen');
+    if(!hasSeenOnboarding && onboardingModal){
+        onboardingModal.style.display = 'flex';
+    }
+}
+closeOnboardingBtn.addEventListener('click', () => {
+    onboardingModal.style.display = 'none';
+    localStorage.setItem('charis_onboarding_seen', 'true');
+});
+
+checkOnboarding();
 loadData();
 renderTasks();
 renderShop();

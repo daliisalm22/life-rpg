@@ -4,13 +4,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/png" href="favicon.ico">
+        <link rel="apple-touch-icon" href="favicon.JPEG">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>charis - lifeRPG</title>
     </head>
     <body>
         <header class="top-control-bar">
             <div class="screen-title">
-                <h1 id="header-title">DASHBOARD</h1>
+                <h1 id="header-title">𐙚DASHBOARD ⋆.˚˖࿔ ࣪</h1>
             </div>
             <div class="controls-wrapper">
                 <button id="light-dark-toggle" class="glass-icon-btn">
@@ -40,28 +42,28 @@
 
             <div class="views-wrapper">
                 <section id="home-screen" class="screen active">
-                    <div class="dashboard-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
-                        <div class="glass-card" style="padding: 15px; text-align: center;">
+                    <div class="dashboard-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; margin: 5px;">
+                        <div class="glass-card" style="padding: 15px; text-align: center; gap: 5px;">
                             <span style="font-size: 0.8rem; opacity: 0.8;">done tasks</span>
-                            <h3 id="dash-completed" style="font-size: 1.4rem; margin-top: 5px;">0</h3>
+                            <h3 id="dash-completed" style="font-size: 1.4rem;">0</h3>
                         </div>
-                        <div class="glass-card" style="padding: 15px; text-align: center;">
+                        <div class="glass-card" style="padding: 15px; text-align: center; gap: 5px;">
                             <span style="font-size: 0.8rem; opacity: 0.8;">items in inventory</span>
-                            <h3 id="dash-inventory" style="font-size: 1.4rem; margin-top: 5px;">0</h3>
+                            <h3 id="dash-inventory" style="font-size: 1.4rem;">0</h3>
                         </div>
                     </div>
-                    <div class="glass-card" style="padding: 20px; margin-bottom: 20px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                            <h3 style="font-size: 1rem;">active tasks preview</h3>
-                            <button class="glass-icon-btn" data-target="tasks-screen" onclick="switchScreen('tasks-screen')">view all</button>
+                    <div class="glass-card" style="padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="font-size: 1rem; align-self: center;">active tasks preview</h3>
+                            <button class="glass-icon-btn" data-target="tasks-screen" onclick="switchScreen('tasks-screen')" style="padding-bottom: 6px;">view all</button>
                         </div>
                         <div id="dash-task-preview">
                             <p class="empty-state-text" style="font-size: 0.85rem;">no active tasks.</p>
                         </div>
                     </div>
                     <div class="glass-card" style="padding: 20px;">
-                        <h3 style="font-size: 1rem; margin-bottom: 15px;">minutes focused (past 5 days)</h3>
-                        <div id="real-chart-container" class="chart-container" style="display: flex; justify-content: space-around; align-items: flex-end; height: 120px; padding-top: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                        <h3 style="font-size: 1rem;">minutes focused (past 5 days)</h3>
+                        <div id="real-chart-container" class="chart-container" style="display: flex; justify-content: space-around; align-items: flex-end; height: 120px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
 
                         </div>
                     </div>
@@ -70,6 +72,7 @@
                 <section id="tasks-screen" class="screen">
                     <div class="glass-card task-input-card">
                         <h2>add new task</h2>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
                         <form id="task-form" class="task-form">
                             <input type="text" id="task-input" placeholder="what task do you need to conquer :3" required class="glass-input">
                             <div class="task-options-row">
@@ -93,6 +96,7 @@
                     </div>
                     <div class="glass-card task-list-card">
                         <h2>active tasks</h2>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
                         <div id="task-list" class="task-list">
                             <p class="empty-state-text">no active tasks yet. add one above!</p>
                         </div>
@@ -103,6 +107,7 @@
                     <div class="glass-card shop-input-card">
                         <h2>add custom reward</h2>
                         <p>e.g. taking a bubble bath, building a lego set or finally buying those shoes you always wanted</p>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
                         <form id="reward-form" class="task-form">
                             <input type="text" id="reward-input" placeholder="what treat do you want to unlock?" required class="glass-input">
                             <input type="number" id="reward-cost" placeholder="coin cost (e.g. 100)" required min="1" class="glass-input">
@@ -111,6 +116,7 @@
                     </div>
                     <div class="glass-card shop-list-card">
                         <h2>reward shop</h2>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
                         <div id="shop-list" class="task-list">
                             <p class="empty-state-text">no rewards in the shop yet. add one above!</p>
                         </div>
@@ -131,26 +137,29 @@
                 <section id="settings-screen" class="screen">
                     <div class="glass-card settings-card">
                         <h2>user stats</h2>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
                         <div class="stats-grid" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
                             <p>total coins earned: <span id="stat-total-coins">0</span></p>
                             <p>tasks completed: <span id="stat-completed-tasks">0</span></p>
                             <p>items in inventory: <span id="stat-inventory-count">0</span></p>
                         </div>
                     </div>
-                    <div class="glass-card settings-card" style="margin-top: 20px;">
+                    <div class="glass-card settings-card">
                         <h2>theme customizer</h2>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
                         <p class="empty-state-text" style="text-align: center; margin: 10px 0;">pick your theme!</p>
                         <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
-                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-pink" style="background: var(--pink-light); padding: 10px;" title="pink"></button>
-                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-orange" style="background: var(--orange-light); padding: 10px;" title="orange"></button>
-                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-yellow" style="background: var(--yellow-light); padding: 10px;" title="yellow"></button>
-                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-green" style="background: var(--green-light); padding: 10px;" title="green"></button>
-                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-blue" style="background: var(--blue-light); padding: 10px;" title="blue"></button>
-                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-purple" style="background: var(--purple-light); padding: 10px;" title="purple"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-pink" style="background: var(--pink-light); opacity: 0.5; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);" title="pink"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-orange" style="background: var(--orange-light); opacity: 0.5; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);" title="orange"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-yellow" style="background: var(--yellow-light); opacity: 0.5; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);" title="yellow"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-green" style="background: var(--green-light); opacity: 0.5; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);" title="green"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-blue" style="background: var(--blue-light); opacity: 0.5; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);" title="blue"></button>
+                            <button class="glass-icon-btn theme-switch-btn" data-theme="theme-purple" style="background: var(--purple-light); opacity: 0.5; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);" title="purple"></button>
                         </div>
                     </div>
-                    <div class="glass-card settings-card" style="margin-top: 20px;">
+                    <div class="glass-card settings-card">
                         <h2>data & control</h2>
+                        <p>⊹₊˚‧︵‿₊⊱·✶·⊰₊‿︵‧˚₊⊹</p>
                         <p class="empty-state-text" style="text-align: center; margin: 10px 0;">you can reset all your progress here.</p>
                         <button class="glass-btn danger-btn" onclick="resetAppData()">reset all data</button> 
                     </div>
@@ -175,6 +184,41 @@
                 <span class="material-symbols-rounded">settings</span>
             </button>
         </nav>
+
+        <div id="onboarding-modal" class="modal-overlay" style="display: none;">
+            <div class="glass-card modal-content">
+                <div class="modal-header">
+                    <span class="modal-badge">welcome to CHARIS!! :3</span>
+                    <h2>your life, but gamified.</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="onboarding-step">
+                        <span class="step-icon">⏱️</span>
+                        <div>
+                            <h4>1. crush tasks</h4>
+                            <p>add focus sessions or chores. every 5 minutes you work you earn 1 coin!</p>
+                        </div>
+                    </div>
+                    <div class="onboarding-step">
+                        <span class="step-icon">🪙</span>
+                        <div>
+                            <h4>2. stack coins</h4>
+                            <p>watch your balance grow as you build streaks and complete your tasks!</p>
+                        </div>
+                    </div>
+                    <div class="onboarding-step">
+                        <span class="step-icon">🛍️</span>
+                        <div>
+                            <h4>3. treat yourself</h4>
+                            <p>spend your very hard-earned coins in the shop for stuff like allowing yourself to game for 1hr!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="glass-btn primary-btn" id="close-onboarding-btn" style="width: 100%; padding: 12px; font-weight: 600;">lets get started!!</button>
+                </div>
+            </div>
+        </div>
 
         <script src="script.js"></script>
     </body>
