@@ -242,6 +242,14 @@ window.completeTask = function(id){
         checkAndUpdateStreak();
         renderTasks();
         saveData();
+        if (typeof confetti === 'function'){
+            confetti({
+                particleCount: 80,
+                spread: 60,
+                origin: {y: 0.7},
+                colors: ['#ffb3cc','#fa88ae', '#ffd1b3', '#ffb366','#fff2b3','#ffe680', '#b3ffcc','#6de194','#b3d1ff','#80b3ff','#e6b3ff','#cc99ff']
+            });
+        }
     }
 };
 
@@ -400,6 +408,20 @@ window.resetAppData = function(){
         alert("RPG data reset successfully! fresh start yay!!");
     }
 };
+
+const toggleMusicBtn = document.getElementById('toggle-music-panel');
+const musicDock = document.getElementById('sticky-music-player');
+if (toggleMusicBtn && musicDock) {
+    toggleMusicBtn.addEventListener('click', () => {
+        musicDock.classList.toggle('minimized');
+        if (musicDock.classList.contains('minimized')) {
+            toggleMusicBtn.textContent = '🗖';
+        }
+        else{ 
+            toggleMusicBtn.textContent = '🗕';
+        }
+    });
+}
 
 const onboardingModal = document.getElementById('onboarding-modal');
 const closeOnboardingBtn = document.getElementById('close-onboarding-btn');
