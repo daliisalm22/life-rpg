@@ -32,7 +32,7 @@
                 <div class="stat-item">
                     <span class="stat-icon"><span class="material-symbols-rounded">mode_heat</span></span>
                     <div class="stat-info">
-                        <span id="coin-count">1</span>
+                        <span id="streak-count">1</span>
                         <span id="stat-label">day streak</span>
                     </div>
                 </div>
@@ -40,8 +40,30 @@
 
             <div class="views-wrapper">
                 <section id="home-screen" class="screen active">
-                    <div class="glass-card">
-                        <p>ur life, but gamified :3</p>
+                    <div class="dashboard-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                        <div class="glass-card" style="padding: 15px; text-align: center;">
+                            <span style="font-size: 0.8rem; opacity: 0.8;">done tasks</span>
+                            <h3 id="dash-completed" style="font-size: 1.4rem; margin-top: 5px;">0</h3>
+                        </div>
+                        <div class="glass-card" style="padding: 15px; text-align: center;">
+                            <span style="font-size: 0.8rem; opacity: 0.8;">items in inventory</span>
+                            <h3 id="dash-inventory" style="font-size: 1.4rem; margin-top: 5px;">0</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card" style="padding: 20px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h3 style="font-size: 1rem;">active tasks preview</h3>
+                            <button class="glass-btn" style="font-size: 0.75px; padding: 4px 10px;" data-target="tasks-screen" onclick="switchScreen('tasks-screen')">view all</button>
+                        </div>
+                        <div id="dash-task-preview">
+                            <p class="empty-state-text" style="font-size: 0.85rem;">no active tasks.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <h3 style="font-size: 1rem; margin-bottom: 15px;">minutes focused (past 5 days)</h3>
+                        <div class="chart-container" style="display: flex; justify-content: space-around; align-items: flex-end; height: 120px; padding-top: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+
+                        </div>
                     </div>
                 </section>
 

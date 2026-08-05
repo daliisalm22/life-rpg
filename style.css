@@ -411,4 +411,17 @@ button, .glass-btn, .nav-icon-btn{
 
 body.dark-mode .glass-pill-select{
     color: var(--white);
+    background-color: rgba(0, 0, 0, 100);
+}
+
+.nav-icon-btn{
+    transition: transform 0.2s cubic-bezier(0.175, 0.0885, 0.32, 1.275), background-color 0.2s;
+}
+
+.nav-icon-btn.active{
+    transform: scale(1.15);
+}
+
+.nav-icon-btn.active{
+    transform: scale(0.95);
 }

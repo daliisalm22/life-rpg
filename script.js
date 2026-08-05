@@ -42,7 +42,11 @@ let shopItems = [
 ];
 let inventoryItems = [];
 let completedTasksCount = 0;
+let currentStreak = 1;
+let lastActiveDate = '';
+let dailyMinutes = {};
 const coinCountSpan = document.getElementById('coin-count');
+const streakCountSpan = document.getElementById('streak-count');
 const statTotalCoins = document.getElementById('stat-total-coins');
 const statCompletedTasks = document.getElementById('stat-completed-tasks');
 const statInventoryCount = document.getElementById('stat-inventory-count');
@@ -52,6 +56,9 @@ function saveData(){
     localStorage.setItem('rpg_shop', JSON.stringify(shopItems));
     localStorage.setItem('rpg_inventory', JSON.stringify(inventoryItems));
     localStorage.setItem('rpg_completed', completedTasksCount);
+    localStorage.setItem('rpg_streak', currentStreak);
+    localStorage.setItem('rpg_last_active', lastActiveDate);
+    localStorage.setItem('rpg_daily_minutes', JSON.stringify(dailyMinutes));
     updateStats();
 }
 function loadData(){
@@ -65,16 +72,48 @@ function loadData(){
     if (savedInventory) inventoryItems=JSON.parse(savedInventory);
     const savedCompleted = localStorage.getItem('rpg_completed');
     if (savedCompleted !== null) completedTasksCount = parseInt(savedCompleted);
+
+    const savedStreak = localStorage.getItem('rpg_streak');
+    if (savedStreak !== null) currentStreak = parseInt(savedStreak);
+    const savedLastActive = localStorage.getItem('rpg_last_archive');
+    if (savedLastActive) lastActiveDate = savedLastActive;
+    const savedDailyMinutes = localStorage.getItem('rpg_daily_minutes');
+    if (savedDailyMinutes) dailyMinutes = JSON.parse(savedDailyMinutes);
     coinCountSpan.textContent = coins;
+    if (streakCountSpan) streakCountSpan.textContent = currentStreak;
 }
 
 function updateStats(){
     coinCountSpan.textContent = coins;
+    if (streakCountSpan) streakCountSpan.textContent = currentStreak;
     if (statTotalCoins) statTotalCoins.textContent = coins;
     if (statCompletedTasks) statCompletedTasks.textContent = completedTasksCount;
     if (statInventoryCount) statInventoryCount.textContent = inventoryItems.length;
+    const dashCompleted = document.getElementById('dash-completed');
+    const dashInventory = document.getElementById('dash-inventory');
+    const dashTaskPreview = document.getElementById('dash-task-preview');
+    if (dashCompleted) dashCompleted.textContent = completedTasksCount;
+    if (dashInventory) dashInventory.textContent = inventoryItems.length;
+    if (dashTaskPreview){
+        if (tasks.length === 0){
+            dashTaskPreview.innerHTML = `<p class="empty-state-text" style="font-size: 0.85rem;">no active tasks.</p>`;
+        }
+        else {
+            let previewHTML = '';
+            tasks.slice(0, 2).forEach(t => {
+                previewHTML += `<div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <span style="font-size: 0.9rem;">${t.title}</span>
+                    <span style="font-size: 0.8rem; opacity: 0.7;">⏱️ ${t.duration}m</span>
+                </div>`;
+            });
+            dashTaskPreview.innerHTML = previewHTML;
+        }
+    }
+    renderRealChart();
 }
-
+function checkAndUpdateStreak(){
+    const today = new Date(). toISOString().split('T')
+}
 
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
@@ -97,10 +136,12 @@ taskForm.addEventListener('submit', (e) => {
     tasks.push(newTask);
     taskInput.value = '';
     renderTasks();
+    saveData();
 });
 function renderTasks(){
     if (tasks.length === 0){
         taskList.innerHTML = `<p class="empty-state-text">no active tasks yet. add one above!</p>`;
+        updateStats();
         return;
     }
     taskList.innerHTML = '';
@@ -119,14 +160,18 @@ function renderTasks(){
         `;
         taskList.appendChild(taskCard);
     });
+    updateStats();
 }
 window.completeTask = function(id){
     const taskIndex = tasks.findIndex(t => t.id === id);
     if(taskIndex !== -1){
+        const taskDuration = tasks[taskIndex].duration;
         coins += tasks[taskIndex].coins;
         coinCountSpan.textContent = coins;
         tasks.splice(taskIndex, 1);
         completedTasksCount++;
+        logTaskMinutes(taskDuration);
+        checkAndUpdateStreak();
         renderTasks();
         saveData();
     }
@@ -197,6 +242,7 @@ window.buyReward = function(id) {
 function renderInventory(){
     if (inventoryItems.length === 0){
         inventoryList.innerHTML = `<p class="empty-state-text">your inventory is empty. go earn those hours and buy something nice!</p>`;
+        updateStats();
         return;
     }
     inventoryList.innerHTML = '';
@@ -214,6 +260,7 @@ function renderInventory(){
         `;
         inventoryList.appendChild(invCard);
     });
+    updateStats();
 }
 window.redeemReward = function(index){
     const claimed = inventoryItems.splice(index, 1);
@@ -232,7 +279,10 @@ window.resetAppData = function(){
     if (confirm("Are you sure you want to reset all your progress, coins and inventory?")){
         localStorage.clear()
         coins = 0;
+        currentStreak = 1;
+        dailyMinutes = {};
         coinCountSpan.textContent = coins;
+        streakCountSpan.textContent = currentStreak;
         tasks = [];
         shopItems = [
             {id: 1, title: 'bubble tea', cost: 50},
